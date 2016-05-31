@@ -672,5 +672,18 @@ public class Dataverse extends DvObjectContainer {
     public void setPermissionRoot(boolean permissionRoot) {
         this.permissionRoot = permissionRoot;
     }
+    
+    public ArrayList<String> getMetadataDataverseNameList() {
+        Dataverse testDV = this;
+        ArrayList<String> retNames = new ArrayList<String>();
+        while (testDV.getOwner() != null) {
+            retNames.add(testDV.getOwner().getDisplayName());
+            if (testDV.getOwner().metadataBlockRoot) {
+                break;
+            }
+            testDV = testDV.getOwner();
+        }
+        return retNames;
+    }
 
 }
